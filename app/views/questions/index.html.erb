@@ -1,7 +1,17 @@
 <h1>Questions</h1>
 
-<%= questions.inspect %>
+<%# <%= @questions.inspect %> <%# в скобках с процентами можно выполнить код на языке руби в разметке html%>
 
-<%= @questions.each do |questions| %>
+<% @questions.each do |question| %> <%# если после процента в начале равно = тогда он автоматом выведет результат кода%>
+
+  <h2><%= question.title %></h2> <%# title это один из заоголовков в базе данных question и его можно вызвать как отдельный метод%>
+
+  <time datetime="<%= question.created_at.strftime('%Y-%m-%d %H:%M:%S')%>">
+    <%= question.created_at %>
+  </time>
+
+  <p>
+  <%= question.body%> <%# также как и title%>
+  </p>
 
 <% end %>

@@ -8,3 +8,5 @@ class CreateQuestions < ActiveRecord::Migration[7.0]
     end
   end
 end
+
+# миграция это удобынй спопсб изменять схему базы данных
