@@ -11,7 +11,10 @@
   </time>
 
   <p>
-  <%= question.body%> <%# также как и title%>
+    <%= question.body%> <%# также как и title%>
+    <br>
+    <%= link_to 'Edit', edit_question_path(question) %>
+    <%= link_to 'Destroy', question_path(question),data: {method: :delete,confirm: "Are you sure?"} %>
   </p>
 
 <% end %>

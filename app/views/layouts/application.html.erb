@@ -17,8 +17,7 @@
         <li><%= link_to 'Home', root_path%></li> <%# переход через код руби, можно через root_url тогда в строке будет полный 
                                                   домен сайта(example.com/question), а с root_path только часть(/question)%>
         <li><%= link_to 'Questions', questions_path%></li>
-        <li><a href="/">Home<li>
-      <ul>
+      </ul>
     </nav>
     <main>
       <%= yield %>

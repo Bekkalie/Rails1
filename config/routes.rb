@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  get '/questions', to: 'questions#index' #localhost/questions HTTP GET
+  resources :questions, only: %i[index new edit create update destroy]
+  # get '/questions', to: 'questions#index' #localhost/questions HTTP GET
   
 
-  get '/questions/new', to: 'questions#new' 
+  # get '/questions/new', to: 'questions#new' # get значит будет брать
+
+  # get '/questions/:id/edit', to: 'questions#edit'
+
+  # post '/questions', to: 'questions#create' # post значит будет отправлять 
 
   root 'pages#index'
 end

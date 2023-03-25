@@ -1,7 +1,5 @@
-<h1>New question</h1> 
+<%= @question.inspect%>
 
-
-<%# это форма для добавления новой записи в базу данных чере разметку%>
 <%= form_with model: @question do |f| %> <%# можно передовать не только модель но и url%>
   <div>
     <%= f.label :title %>

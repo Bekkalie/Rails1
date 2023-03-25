@@ -1,6 +1,6 @@
 class Question < ApplicationRecord 
-  #validates :title, presense: true, length: {minimum: 2} #проверка(валидация) title на длину(мин 2) в субд
-  #validates :body, presense: true, length: {minimum: 2} #проверка(валидация) body на длину(мин 2) в субд
+  validates :title, presence: true, length: {minimum: 2} #проверка(валидация) title на длину(мин 2) в субд
+  validates :body, presence: true, length: {minimum: 2} #проверка(валидация) body на длину(мин 2) в субд
 end
 
 #каждая модель хранит в себе данные и бизнес логику и  связана с одноименной базой данных и позволяет оттуда их достовать 
