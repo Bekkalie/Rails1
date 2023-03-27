@@ -1,5 +1,12 @@
 Rails.application.routes.draw do
-  resources :questions, only: %i[index new edit create update destroy]
+
+  #стандартные методы их запись можно сократить таким способом 
+  #resources :questions, only: %i[index new edit create update destroy show] #каждый из этих методов можно писать отдельно
+  #если нужно все 7 стандартных методов то можно записать просто 
+  resources :questions
+  
+  
+  
   # get '/questions', to: 'questions#index' #localhost/questions HTTP GET
   
 

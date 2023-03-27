@@ -13,6 +13,8 @@
   <p>
     <%= question.body%> <%# также как и title%>
     <br>
+    <%= link_to 'Show', question_path(question) %> 
+    <%#question_path это префикс для пути использования метода можно посмотреть в консоли с помощью rails routes %>
     <%= link_to 'Edit', edit_question_path(question) %>
     <%= link_to 'Destroy', question_path(question),data: {method: :delete,confirm: "Are you sure?"} %>
   </p>
