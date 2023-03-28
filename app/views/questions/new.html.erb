@@ -1,17 +1,3 @@
-<h1>New question</h1> 
+<h1 class="mb-4">New question</h1> 
 
-
-<%# это форма для добавления новой записи в базу данных чере разметку%>
-<%= form_with model: @question do |f| %> <%# можно передовать не только модель но и url%>
-  <div>
-    <%= f.label :title %>
-    <%= f.text_field :title, required: true, minlength: 2, placeholder: "Title" %>
-  </div>
-
-  <div>
-    <%= f.label :body %>
-    <%= f.text_area :body, required: true, minlength: 2 %>
-  </div>
-
-  <%= f.submit "submit question"%>
-<% end %>
+<%= render 'form' %>
