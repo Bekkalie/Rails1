@@ -2,6 +2,11 @@ class QuestionsController < ApplicationController
 
   #контроллер взаимодействует с файлом views/index.html передавая ему какую либо информацию или методы
 
+  #before_action это часть кода которая будет обьявлена в указаных методах их может быть несколько
+  # то есть метод set_question будет выполнен в начале каждого каждого указаного метода в нашем случае
+  # это show destroy edit update
+  before_action :set_question, only: %i[show destroy edit update]
+
   def index 
     @questions = Question.all
   end
@@ -13,7 +18,7 @@ class QuestionsController < ApplicationController
 
 
   def edit 
-    @question = Question.find_by id: params[:id]
+    #@question = Question.find_by id: params[:id]
   end
 
 
@@ -33,7 +38,7 @@ class QuestionsController < ApplicationController
 
 
   def update 
-    @question = Question.find_by id: params[:id]
+    #@question = Question.find_by id: params[:id]
     if @question.update question_params
       flash[:success] = "Question updated!" 
       redirect_to questions_path
@@ -44,19 +49,25 @@ class QuestionsController < ApplicationController
 
 
   def destroy 
-    @question = Question.find_by id: params[:id]
+    #@question = Question.find_by id: params[:id]
     @question.destroy
     flash[:success] = "Question deleted!" 
     redirect_to questions_path
   end
 
   def show
-    @question = Question.find_by id: params[:id]
+    #@question = Question.find_by id: params[:id]
+    @answer = @question.answers.build #привязываем question И answer
   end
 
   private 
 
   def question_params 
     params.require(:question).permit(:title, :body) #достать из формы значения с ключом title и body
+  end
+
+  def set_question #этот метод будет обьявлен в методах указаных в before_action
+    #@question = Question.find_by id: params[:id]
+    @question = Question.find params[:id] #метод find удобнее в случаях если запрощенной записи не существует
   end
 end

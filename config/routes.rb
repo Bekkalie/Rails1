@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   #стандартные методы их запись можно сократить таким способом 
   #resources :questions, only: %i[index new edit create update destroy show] #каждый из этих методов можно писать отдельно
   #если нужно все 7 стандартных методов то можно записать просто 
-  resources :questions
+  resources :questions do 
+    resources :answers, only: %i[create] #вложенный маршрут
+  end
   
   
   
