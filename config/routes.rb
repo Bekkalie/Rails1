@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   #resources :questions, only: %i[index new edit create update destroy show] #каждый из этих методов можно писать отдельно
   #если нужно все 7 стандартных методов то можно записать просто 
   resources :questions do 
-    resources :answers, only: %i[create] #вложенный маршрут
+    resources :answers, only: %i[create destroy] #вложенный маршрут
   end
   
   

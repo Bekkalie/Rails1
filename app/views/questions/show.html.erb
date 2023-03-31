@@ -12,6 +12,11 @@
 <%= link_to 'Destroy', question_path(@question), class: 'btn btn-danger',
 data: {method: :delete,confirm: "Are you sure?"} %>
 
+<hr class="my-3">
+
+<h2 class="mt-5">Write your answer</h2>
+
+<%= render 'shared/errors', object: @answer %> <%# вывод сообщения об ошибке%>
 
 <%= form_with model: [@question, @answer] do |f| %> <%# передаем путь через массив с @question и @answer%>
   <div class="mb-3 row">
@@ -26,3 +31,24 @@ data: {method: :delete,confirm: "Are you sure?"} %>
 
   <%= f.submit "Submit answer!", class:'btn btn-primary'%>
 <% end %>
+
+<h2 class="mt-5">Answers</h2>
+
+<% @answers.each do |answer| %>
+  <article class='mb-3'>
+    <time datetime="<%= answer.formatted_created_at%>">
+      <%= answer.formatted_created_at %>
+    </time>
+
+    <p>
+      <%= answer.body %>
+    </p>
+
+    <%= link_to 'Delete', question_answer_path(@question, answer), class:'btn btn-danger btn-sm',
+    data: {method: :delete, confirm: "Are you sure?"} %> 
+    <%# создаем кнопку удаления ответа, 
+    question_answer_path путь для метода удаления,
+    в него помешаем (переменную с данными вопроса(@question), потом ответов(answer)) никак иначе чтобы он правильно подобрал id,
+    далее указываем действия для базы данных(метод удаления и сообщение о подтверждении)%>
+  </article>
+<%end%>
