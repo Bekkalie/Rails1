@@ -58,7 +58,7 @@ class QuestionsController < ApplicationController
   def show
     #@question = Question.find_by id: params[:id]
     @answer = @question.answers.build #привязываем question И answer
-    @answers = Answer.order created_at: :desc #метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию
+    @answers = @question.answers.order created_at: :desc #метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию
   end
 
   private 

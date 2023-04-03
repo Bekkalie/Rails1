@@ -1,5 +1,5 @@
 class Question < ApplicationRecord 
-  has_many :answers
+  has_many :answers, dependent: :destroy
 
   validates :title, presence: true, length: {minimum: 2} #проверка(валидация) title на длину(мин 2) в субд
   validates :body, presence: true, length: {minimum: 2} #проверка(валидация) body на длину(мин 2) в субд
