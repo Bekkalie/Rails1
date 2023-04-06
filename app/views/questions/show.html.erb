@@ -1,6 +1,6 @@
-<% provide :page_title, 'show' %> <%# метод provide может передовать что то методу вспомогательному yield(в нашем случае 
+<% provide :page_title, 'Show' %> <%# метод provide может передовать что то методу вспомогательному yield(в нашем случае 
 который находится в основном файле application.html.erb)%>
-<% currently_at 'show' %>
+<% currently_at 'Show' %>
 
 <h1 class="mb-4"><%= @question.title%></h1>
 
@@ -8,9 +8,12 @@
     <%= @question.formatted_created_at %>
   </time>
 
-<p class="lead my-3">
-  <%= @question.body %>
-</p>
+<div class="lead my-3">
+  <%= sanitize @question.body %> 
+  <%# @question.body.html_safe таким образом можно написать что в теле вопроса можно писать html и мы доверяем пользователю 
+  но в таком случае это опасно ведь доступен тег <script> и мы используем хелпер из рельс sanitize 
+  который оставляет только теги для текста%>
+</div>
 
 <%= link_to 'Edit', edit_question_path(@question), class: 'btn btn-secondary' %>
 <%= link_to 'Destroy', question_path(@question), class: 'btn btn-danger',
@@ -24,24 +27,16 @@ data: {method: :delete,confirm: "Are you sure?"} %>
 
 <h2 class="mt-5">Answers</h2>
 
-<% @answers.each do |answer| %>
-  <article class='mb-3'>
-    <time datetime="<%= answer.formatted_created_at%>">
-      <%= answer.formatted_created_at %>
-    </time>
+<%= paginate @answers%> <%# paginate хелпер из kaminari который позволяет переключаться между страницами%>
 
-    <p>
-      <%= answer.body %>
-    </p>
+<%= render partial: 'answers/answer', collection: @answers, as: :answer, locals: {question: @question}%> 
+<%# partial брать из директории 'answers/answer',
+collection назвать @answers,
+as: каждый елемент коллекции назвать :answer,
+local другие локальные переменные будут включать в себя переменную question которая 
+будет брать значение из переменной образца дласса @question,
 
-    <%= link_to 'Edit', edit_question_answer_path(@question, answer), class:'btn btn-info btn-sm' %>
+ruby on rails поймет что @answers это коллекция(?) Ведь ему надо отрендерить каждый элемент коллекции
+ и полезет в директорию answers и найдет в ней файл answer %>
 
-    <%= link_to 'Delete', question_answer_path(@question, answer), class:'btn btn-danger btn-sm',
-    data: {method: :delete, confirm: "Are you sure?"} %> 
-    <%# создаем кнопку удаления ответа, 
-    question_answer_path путь для метода удаления,
-    в него помешаем (переменную с данными вопроса(@question), потом ответов(answer)) никак иначе чтобы он правильно подобрал id,
-    далее указываем действия для базы данных(метод удаления и сообщение о подтверждении)%>
-
-  </article>
-<%end%>
+ <%= paginate @answers%> <%# paginate хелпер из kaminari который позволяет переключаться между страницами%>

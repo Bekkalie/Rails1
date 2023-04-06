@@ -9,7 +9,9 @@ class AnswersController < ApplicationController
     
     if @answer.save
       flash[:success] = "Answer created"
-      redirect_to questions_path(@question)
+      redirect_to questions_path(@question, anchor: "answer-#{@answer.id}") 
+      # теперь после нажатий на Submit при изменении ответа будет перебрасывать по якорю
+      #на вопрос к которому относиться ответ по id
     else
       @answers = @question.answers.order created_at: :desc #метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию
       render 'questions/show'
@@ -20,7 +22,7 @@ class AnswersController < ApplicationController
 
     @answer.destroy # удаляем его
     flash[:success] = 'Answer deleted!' # сообщение об удалении
-    redirect_to questions_path(@question) # после перенаправляем на страницу вопроса
+    redirect_to question_path(@question) # после перенаправляем на страницу вопроса
   end
 
   def edit #для edit необходим метод update
@@ -29,8 +31,8 @@ class AnswersController < ApplicationController
 
   def update
     if @answer.update answer_params
-      flash[:success] = "answer updated!" 
-      redirect_to questions_path(@question)
+      flash[:success] = "Answer updated!" 
+      redirect_to question_path(@question, anchor: "answer-#{@answer.id}")
     else
       render :edit
     end

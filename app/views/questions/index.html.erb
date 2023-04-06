@@ -10,6 +10,8 @@ Questions
 
 <%# <%= @questions.inspect %> <%# в скобках с процентами можно выполнить код на языке руби в разметке html%>
 
+<%= paginate @questions%> <%# paginate хелпер из kaminari который позволяет переключаться между страницами%>
+
 <% @questions.each do |question| %> <%# если после процента в начале равно = тогда он автоматом выведет результат кода%>
   <article class="card mt-3">
     <div class="card-body">
@@ -26,7 +28,9 @@ Questions
 
 
         <p class="my-2">
-          <%= question.body%> <%# также как и title%>
+          <%= truncate strip_tags(question.body), length: 150, omission: '... (continued)'%> 
+          <%# также как и title, strip_tags удаляет тэги, метод truncate обрезает текст, на длину указаную в конце строки,
+          также есть у truncate необязательный параметр omission который пишет в конце обрезанного предложенния то что укажешь%>
         </p>
       </section>
 
@@ -39,3 +43,5 @@ Questions
     </div>
   </article>
 <% end %>
+
+<%= paginate @questions%> <%# paginate хелпер из kaminari который позволяет переключаться между страницами%>

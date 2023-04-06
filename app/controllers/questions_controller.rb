@@ -8,7 +8,9 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show destroy edit update]
 
   def index 
-    @questions = Question.all
+    @questions = Question.order(created_at: :desc).page params[:page] 
+    #метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию, 
+    #начиная с .page это идут настройки решения kaminari
   end
 
 
@@ -58,7 +60,9 @@ class QuestionsController < ApplicationController
   def show
     #@question = Question.find_by id: params[:id]
     @answer = @question.answers.build #привязываем question И answer
-    @answers = @question.answers.order created_at: :desc #метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию
+    @answers = @question.answers.order(created_at: :desc).page(params[:page]) 
+    #метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию, 
+    #начиная с .page это идут настройки решения kaminari
   end
 
   private 
