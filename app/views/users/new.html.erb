@@ -1,0 +1,8 @@
+<% provide :page_title, 'Registration' %> <%# метод provide может передовать что то методу вспомогательному yield(в нашем случае 
+который находится в основном файле application.html.erb)%>
+
+<% currently_at 'Sign up' %>
+
+<h1 class="mb-4">Registration</h1> 
+
+<%= render 'form' %>

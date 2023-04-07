@@ -8,7 +8,12 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: %i[show destroy edit update]
 
   def index 
-    @questions = Question.order(created_at: :desc).page params[:page] 
+    @pagy, @questions = pagy Question.order(created_at: :desc) 
+    #альтернатива kaminari, две переменные потому что вернет массив состояший из двух элементов
+    #дальше pagy и объект который хотим разбивать по страницам
+
+
+    #Question.order(created_at: :desc).page params[:page] 
     #метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию, 
     #начиная с .page это идут настройки решения kaminari
   end
@@ -60,7 +65,8 @@ class QuestionsController < ApplicationController
   def show
     #@question = Question.find_by id: params[:id]
     @answer = @question.answers.build #привязываем question И answer
-    @answers = @question.answers.order(created_at: :desc).page(params[:page]) 
+    @pagy, @answers = pagy @question.answers.order(created_at: :desc)
+    #@answers = @question.answers.order(created_at: :desc).page(params[:page]) 
     #метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию, 
     #начиная с .page это идут настройки решения kaminari
   end

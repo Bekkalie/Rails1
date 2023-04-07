@@ -1,4 +1,6 @@
 module ApplicationHelper # В папке helpers помещаются хелперы это типо вспомогательных функций в RoR(по типу link_to, form_with)
+  include Pagy::Frontend #улучшеная альтернатива kaminari, мы импортируем методы для фронта
+
 
   def full_title(page_title = "")
     base_title = "AskIt"

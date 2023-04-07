@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  include ActionView::RecordIdentifier
 
   before_action :set_question! #если не писать only то метод будет поставлен для всех
   before_action :set_answer!, except: :create #порядок важен! ,выполняется для всех случаев кроме create
@@ -9,7 +10,7 @@ class AnswersController < ApplicationController
     
     if @answer.save
       flash[:success] = "Answer created"
-      redirect_to questions_path(@question, anchor: "answer-#{@answer.id}") 
+      redirect_to questions_path(@question, anchor: dom_id(@answer)) 
       # теперь после нажатий на Submit при изменении ответа будет перебрасывать по якорю
       #на вопрос к которому относиться ответ по id
     else
@@ -32,7 +33,7 @@ class AnswersController < ApplicationController
   def update
     if @answer.update answer_params
       flash[:success] = "Answer updated!" 
-      redirect_to question_path(@question, anchor: "answer-#{@answer.id}")
+      redirect_to question_path(@question, anchor: dom_id(@answer))
     else
       render :edit
     end

@@ -1,24 +1,24 @@
-  <article class="mb-3 card" id="answer-<%= answer.id %>"> <%# теперь у каждого ответа будет свой id %>
-    <div class="card-body">
-      <section class="card-text">
-        <small>
-          <time datetime="<%= answer.formatted_created_at%>">
-            <%= answer.formatted_created_at %>
-          </time>
-        </small>
+<%= tag.article class: 'mb-3 card', id: dom_id(answer) do %> <%# теперь у каждого ответа будет свой id %>
+  <div class="card-body">
+    <section class="card-text">
+      <small>
+        <time datetime="<%= answer.formatted_created_at%>">
+          <%= answer.formatted_created_at %>
+        </time>
+      </small>
 
-        <div class="mt-2 mb-3">
-          <%= sanitize answer.body %>
-        </div>
-      </section>
+      <div class="mt-2 mb-3">
+        <%= sanitize answer.body %>
+      </div>
+    </section>
 
-      <%= link_to 'Edit', edit_question_answer_path(question, answer), class:'btn btn-info btn-sm' %>
+    <%= link_to 'Edit', edit_question_answer_path(question, answer), class:'btn btn-info btn-sm' %>
 
-      <%= link_to 'Delete', question_answer_path(question, answer), class:'btn btn-danger btn-sm',
-      data: {method: :delete, confirm: "Are you sure?"} %> 
-      <%# создаем кнопку удаления ответа, 
-      question_answer_path путь для метода удаления,
-      в него помешаем (переменную с данными вопроса(@question), потом ответов(answer)) никак иначе чтобы он правильно подобрал id,
-      далее указываем действия для базы данных(метод удаления и сообщение о подтверждении)%>
-    </div>
-  </article>
+    <%= link_to 'Delete', question_answer_path(question, answer), class:'btn btn-danger btn-sm',
+    data: {method: :delete, confirm: "Are you sure?"} %> 
+    <%# создаем кнопку удаления ответа, 
+    question_answer_path путь для метода удаления,
+    в него помешаем (переменную с данными вопроса(@question), потом ответов(answer)) никак иначе чтобы он правильно подобрал id,
+    далее указываем действия для базы данных(метод удаления и сообщение о подтверждении)%>
+  </div>
+<% end %>

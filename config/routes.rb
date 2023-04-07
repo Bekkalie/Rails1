@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   #resources :questions, only: %i[index new edit create update destroy show] #каждый из этих методов можно писать отдельно
   #если нужно все 7 стандартных методов то можно записать просто
   #resources :questions 
-  
+
+  resources :users, only: %i[new create]  
   
   resources :questions do 
     resources :answers, except: %i[new show] #вложенный маршрут, except(кроме)
@@ -22,7 +23,8 @@ Rails.application.routes.draw do
   # post '/questions', to: 'questions#create' # post значит будет отправлять 
 
   root 'pages#index'
-end
 
-#когда в адресной строке будет запрос questions то отправлять на questions#index
+  #когда в адресной строке будет запрос questions то отправлять на questions#index
 # на контроллер question и метод index который связан с файлом views/index.html
+
+end
