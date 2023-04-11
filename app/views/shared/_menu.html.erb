@@ -14,7 +14,7 @@
           <% if user_signed_in? %>
             <li>
               <a class="nav-link px-2 text-white" href="#">
-                <%= current_user.name %> <%# если пользователь в сессии то будет показываться имя%>
+                <%= current_user.name_or_email %> <%#(декоратор) если пользователь в сессии то будет показываться имя или почта%>
               </a>
             </li>
           <% else %>

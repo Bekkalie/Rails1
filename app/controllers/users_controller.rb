@@ -7,7 +7,7 @@ class UsersController < ApplicationController #контроллер создан
     @user = User.new user_params
     if @user.save
       session[:user_id] = @user.id #строчка кода для того чтобы сохранять пользователя во время сесси
-      flash[:success] = "Welcome #{@user.name}!"
+      flash[:success] = "Welcome #{current_user.name_or_email}!"
       redirect_to root_path
     else
       render :new
