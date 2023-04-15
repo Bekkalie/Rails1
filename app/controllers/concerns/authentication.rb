@@ -12,6 +12,21 @@ module Authentication
     def user_signed_in?
       current_user.present? #будет возвращать булевое выражение если пользователь зашел
     end
+
+    def require_no_authentication
+      return unless user_signed_in?
+
+      flash[:warning] = "You are already signed in!"
+      redirect_to root_path
+    end
+
+    def sign_in(user)
+      session[:user_id] = user.id #строчка кода для того чтобы сохранять пользователя во время сессии
+    end
+
+    def sign_out
+      session.delete :user_id
+    end
   
     helper_method :current_user, :user_signed_in? #helper_method позволяет преврятить указанает методы в хелперы 
   end

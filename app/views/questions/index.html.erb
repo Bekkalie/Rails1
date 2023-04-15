@@ -10,7 +10,7 @@ Questions
 
 <%# <%= @questions.inspect %> <%# в скобках с процентами можно выполнить код на языке руби в разметке html%>
 
-<%= raw pagy_bootstrap_nav @pagy %> <%# альтернатива kaminari, raw и двойное ровно одно и тоже это значит будет обрабатывать html%>
+<%= pagination(@pagy) %> <%# альтернатива kaminari, raw и двойное ровно одно и тоже это значит будет обрабатывать html%>
 <%# <%= paginate @questions%> <%# paginate хелпер из kaminari который позволяет переключаться между страницами%>
 
 <% @questions.each do |question| %> <%# если после процента в начале равно = тогда он автоматом выведет результат кода%>
@@ -45,5 +45,5 @@ Questions
   </article>
 <% end %>
 
-<%== pagy_bootstrap_nav @pagy %> <%# альтернатива kaminari, raw и двойное ровно одно и тоже это значит будет обрабатывать html%>
+<%= pagination(@pagy) %> <%# альтернатива kaminari, raw и двойное ровно одно и тоже это значит будет обрабатывать html%>
 <%# <%= paginate @questions%> <%# paginate хелпер из kaminari который позволяет переключаться между страницами%>

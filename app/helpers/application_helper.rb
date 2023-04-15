@@ -27,4 +27,8 @@ module ApplicationHelper # В папке helpers помещаются хелпе
                       end
     link_to title, url, options
   end
+
+  def pagination(obj)
+    raw(pagy_bootstrap_nav(obj)) if obj.pages > 1 # если страниц больше 1 то будет отображаться навигация
+  end
 end

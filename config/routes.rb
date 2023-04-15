@@ -5,6 +5,11 @@ Rails.application.routes.draw do
   #если нужно все 7 стандартных методов то можно записать просто
   #resources :questions 
 
+  resource :session, only: %i[new create destroy] 
+  #методы resourses ожидают какиго нибуть модификатора 
+  #edit_question_path(@question) типо такого путь и модификатор в этом случае id
+  #resourse отличается он не принмает никаких модификаторов
+  # и назание тоже лучщше в одиночном значение поставить
   resources :users, only: %i[new create]  
   
   resources :questions do 

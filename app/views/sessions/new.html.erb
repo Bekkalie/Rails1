@@ -1,0 +1,32 @@
+<% provide :page_title, 'Log in' %> <%# метод provide может передовать что то методу вспомогательному yield(в нашем случае 
+который находится в основном файле application.html.erb)%>
+
+<% currently_at 'Log in' %> <%# вход в систему%>
+
+<h1 class="mb-4">Log in</h1> 
+
+<%= form_with url: session_path do |f| %> <%# форму будем отправлять на sessions_path%>
+
+  <div class="mb-3 row">
+    <div class='col-sm-2 col-form-label'>
+      <%= f.label :email %>
+    </div>
+
+    <div class="col-sm-10">
+      <%= f.email_field :email, placeholder: "E-mail", class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <div class="mb-3 row">
+    <div class='col-sm-2 col-form-label'>
+      <%= f.label :password %>
+    </div>
+
+    <div class="col-sm-10">
+      <%= f.password_field :password, class: 'form-control form-control-lg' %>
+    </div>
+  </div>
+
+  <%= f.submit "Login", class:'btn btn-primary btn-lg'%>
+
+<% end %>
