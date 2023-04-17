@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   #edit_question_path(@question) типо такого путь и модификатор в этом случае id
   #resourse отличается он не принмает никаких модификаторов
   # и назание тоже лучщше в одиночном значение поставить
-  resources :users, only: %i[new create]  
+  resources :users, only: %i[new create edit update]  
   
   resources :questions do 
     resources :answers, except: %i[new show] #вложенный маршрут, except(кроме)

@@ -15,7 +15,8 @@ module ApplicationHelper # В папке helpers помещаются хелпе
     render partial: 'shared/menu', locals: {current_page: current_page} # рендерим именно паршал если просто написать рендер программа выведет еще и макет 
   end
 
-  def nav_tab(title, url, options = {}) #аналог link_to от Ильи Круковского!!!
+  def nav_tab(title, url, options = {}) #аналог link_to от Ильи Круковского!!! чтобы текст в меню подсвечивался
+     
     current_page = options.delete :current_page
 
     css_class = current_page == title ? 'text-secondary' : 'text-white'  #тернарный оператор
