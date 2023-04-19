@@ -11,6 +11,7 @@ class SessionsController < ApplicationController
       #метод authenticate принимает строку и отпраялет ее в бд сверится
       #амперсант это для того чтобы когда метод возвращал nil мы шли дальше в else 
       sign_in user
+      remember(user) if params[:remember_me] == '1' # запоминать пользователя только если он того хочет
       flash[:success] = "Welcome back #{current_user.name_or_email}!"
       redirect_to root_path
     else

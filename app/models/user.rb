@@ -1,11 +1,11 @@
 class User < ApplicationRecord
-  attr_accessor :old_password # атрибут для появления нового поля в форме
+  attr_accessor :old_password, :remember_token # атрибуты для появления нового поля в форме
 
   has_secure_password validations: false #отключим проверки и пропишем вручнуюю?
 
   #проверка на уровне кода
 
-  validate :correct_old_password, on: :update,if -> { password.present? } #лямбда))))
+  validate :correct_old_password, on: :update, if: -> { password.present? } #лямбда))))
   #проверяем старый пароль, только при обновлении записи и если новый пароль был указан
 
   validate :password_presence # чтобы убрать allow_blank при регистрации
@@ -20,7 +20,32 @@ class User < ApplicationRecord
 
   validate :password_complexity
 
+  def remember_me 
+    self.remember_token = SecureRandom.urlsafe_base64 
+    #SecureRandom.urlsafe_base64 модуль и метод которые сгинерируют рандомное значение
+    update_column :remember_token_digest, digest(remember_token)
+    #обновляем колонку в бд(метод update_column) под названием remember_token_digest и вставляем в нее значение remember_token
+  end
+
+  def forget_me #метод для выхода того чтобы убрать запоминание(забыть пользователя в системе) через бд
+    update_column :remember_token_digest, nil 
+    #обновляем колонку в бд(метод update_column) под названием remember_token_digest и значение remember_token опустошаем
+    self.remember_token = nil #делаем значение токена пустым
+  end
+
+  def remember_token_authenticated?(remember_token)
+    return false unless remember_token_digest.present?
+    BCrypt::Password.new(remember_token_digest).is_password?(remember_token)
+    # проверяем тот хэш который есть нас и который введен в строку
+  end
+
   private
+
+  def digest(string)
+    cost = ActiveModel::SecurePassword.
+      min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
 
   def password_complexity #решение из device, которое проверяет надежность пароля
     # Regexp extracted from https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a
