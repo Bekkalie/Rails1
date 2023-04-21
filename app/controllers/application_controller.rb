@@ -1,8 +1,10 @@
-class ApplicationController < ActionController::Base # родительский класс для всех контроллеров Ruby on Rails
+# frozen_string_literal: true
 
-  include Pagy::Backend #улучшеная альтернатива kaminari, мы импортируем методы для бэка
+# родительский класс для всех контроллеров Ruby on Rails
+class ApplicationController < ActionController::Base
+  include Pagy::Backend # улучшеная альтернатива kaminari, мы импортируем методы для бэка
 
-  include ErrorHandling  #поодключаем модуль обработки ошибок
+  include ErrorHandling  # поодключаем модуль обработки ошибок
 
-  include Authentication #подключаем модуль с аутентиикацией
+  include Authentication # подключаем модуль с аутентиикацией
 end

@@ -1,0 +1,13 @@
+require: # расширения для копа
+  - rubocop-performance
+  - rubocop-rails
+
+AllCops: 
+  NewCops: enable
+  TargetRubyVersion: 3.2.1
+
+Style/Documentation: #чтоб не писать документацию
+  Enabled: false
+
+Rails/FilePath:
+  EnforcedStyle: arguments
