@@ -17,6 +17,7 @@ class QuestionsController < ApplicationController
     # метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию,
     # начиная с .page это идут настройки решения kaminari
     @questions = @questions.decorate
+    @current_user = current_user.decorate
   end
 
   def show

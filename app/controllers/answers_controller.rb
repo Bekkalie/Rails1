@@ -16,11 +16,13 @@ class AnswersController < ApplicationController
 
     if @answer.save
       flash[:success] = 'Answer created'
-      redirect_to questions_path(@question, anchor: dom_id(@answer))
+      redirect_to questions_path(@question) #(@question, anchor: dom_id(@answer))
       # теперь после нажатий на Submit при изменении ответа будет перебрасывать по якорю
       # на вопрос к которому относиться ответ по id
     else
-      @answers = @question.answers.order created_at: :desc # метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию
+      @question = @question.decorate
+      @pagy, @answers = pagy @question.answers.order created_at: :desc # метод order отсортировывает по created_at(полу в бд) и desc это сортировка по убыванию
+      @answers = @answers.decorate
       render 'questions/show'
     end
   end

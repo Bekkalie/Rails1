@@ -17,6 +17,10 @@ Rails.application.routes.draw do
     resources :answers, except: %i[new show] # вложенный маршрут, except(кроме)
   end
 
+  namespace :admin do # мы использовали пространство имён 
+    resources :users, only: %i[index] #теперь этот маршрут будет выглядеть так /admin/users
+  end 
+
   # get '/questions', to: 'questions#index' #localhost/questions HTTP GET
 
   # get '/questions/new', to: 'questions#new' # get значит будет брать

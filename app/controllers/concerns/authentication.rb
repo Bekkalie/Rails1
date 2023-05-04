@@ -16,18 +16,17 @@ module Authentication
         
       @current_user ||= user&.decorate # и смотрим, а не запоминали мы его раньше?
       #& нужен для случая если пользователь в систему не вошел, а decorate нельзя вызвать на nil
-      #и амперсант предупреждает что может быть nil тогда он не вызовет метод
+      #и амперсант предупреждает что может быть nil тогда он не вызовет метод и вернет nil
     end
 
     def user_from_token
       token = cookies.encrypted[:user_id]
       user = User.find_by(id: token) # ищем куки с шифром этого пользователя
       return unless user&.remember_token_authenticated?(token)
-        # если токен соответствует с каким-нибудь токеном который есть в бд,
-        # то входим в аккаунт и еще добавляем пользователя в сессию
-        sign_in user
-        user
-      end
+      # если токен соответствует с каким-нибудь токеном который есть в бд,
+      # то входим в аккаунт и еще добавляем пользователя в сессию
+      sign_in user
+      user
     end
 
     def user_from_session
@@ -82,5 +81,5 @@ module Authentication
     helper_method :current_user, :user_signed_in? # helper_method позволяет преврятить указанает методы в хелперы
   end
   # rubocop:enable Metrics/BlockLength
-    # а эта строка включает обратно проверку по отключенной ошибке
+  # а эта строка включает обратно проверку по отключенной ошибке
 end
